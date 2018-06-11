@@ -36,6 +36,7 @@
         <xs:attribute name="packages" type="xs:string"/>
         <xs:attribute name="status" type="xs:string"/>
         <xs:attribute name="strict" type="xs:string"/>
+        <xs:attribute name="monitorInterval" type="xs:nonNegativeInteger"/>
         <xs:attribute name="name" type="xs:string"/>
         <xs:attribute name="advertiser" type="xs:string"/>
         <xs:attribute name="shutdownTimeout" type="xs:string" use="optional"/>
@@ -83,6 +84,7 @@
         <xs:sequence>
           <xs:element name="Appender" type="AppenderType" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="Console" type="ConsoleType" minOccurs="0"/>
+            <xs:element name="File" type="FileType" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
  <xs:complexType name="ConsoleType">
@@ -93,6 +95,13 @@
         <xs:attribute type="xs:string" name="target" use="required"/>
         <xs:attribute type="xs:string" name="follow" use="optional"/>
   </xs:complexType>
+    <xs:complexType name="FileType">
+        <xs:sequence>
+            <xs:element name="PatternLayout" type="PatternLayoutType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="filename" use="required"/>
+    </xs:complexType>
      <xs:complexType name="PatternLayoutType">
         <xs:simpleContent>
             <xs:extension base="xs:string">
@@ -106,6 +115,7 @@
                 <xs:attribute name="ref" type="xs:string" use="required"/>
             </xs:extension>
         </xs:simpleContent>
+        <xs:attribute name="level" type="xs:string" use="optional"/>
     </xs:complexType>
     <xs:complexType name="LoggerType">
         <xs:sequence>
